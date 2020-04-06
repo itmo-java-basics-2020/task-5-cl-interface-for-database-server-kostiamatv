@@ -27,7 +27,7 @@ public enum  DatabaseCommands {
     READ_KEY{
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment env, String... args) {
-            return null;
+            return new ReadKeyCommand(env, args);
         }
     };
 
