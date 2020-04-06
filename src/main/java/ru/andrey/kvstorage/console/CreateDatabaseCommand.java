@@ -2,17 +2,20 @@ package ru.andrey.kvstorage.console;
 
 public class CreateDatabaseCommand  implements DatabaseCommand{
     ExecutionEnvironment environment;
-    String[] args;
+    ArgumentsParser parser = new ArgumentsParser();
+    String databaseName;
+
 
     public CreateDatabaseCommand(ExecutionEnvironment env, String... args) {
         environment = env;
-        this.args = args;
+        parser.setArgs(args);
+        databaseName = parser.getArgument(ArgumentsParser.argsNames.DatabaseName);
     }
 
     @Override
     public DatabaseCommandResult execute() {
-        if (args.length != 1) {
-            return DatabaseCommandResult.error("Wrong number of arguments: expected 1, got: " + args.length);
+        if (parser.argsLength() != 1) {
+            throw new IllegalArgumentException("Wrong arguments number, expected 1, got: " + parser.argsLength());
         }
         environment.addDatabase(null);
         return DatabaseCommandResult.success("Database created");

@@ -14,19 +14,19 @@ public enum  DatabaseCommands {
     },
     CREATE_TABLE{
         @Override
-        public DatabaseCommandResult execute() {
-            return null;
+        public DatabaseCommandResult execute(ExecutionEnvironment env, String... args) {
+            return new CreateTableCommand(env, args);
         }
     },
     UPDATE_KEY {
         @Override
-        public DatabaseCommandResult execute() {
+        public DatabaseCommandResult execute(ExecutionEnvironment env, String... args) {
             return null;
         }
     },
     READ_KEY{
         @Override
-        public DatabaseCommandResult execute() {
+        public DatabaseCommandResult execute(ExecutionEnvironment env, String... args) {
             return null;
         }
     };
