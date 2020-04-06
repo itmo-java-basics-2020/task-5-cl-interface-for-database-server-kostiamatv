@@ -11,7 +11,6 @@ public class CreateTableCommand implements DatabaseCommand {
     String tableName;
 
 
-
     public CreateTableCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
         parser.setArgs(args);
@@ -28,12 +27,11 @@ public class CreateTableCommand implements DatabaseCommand {
                 .orElse(DatabaseCommandResult.error(ERROR_FIX));
     }
 
-    private DatabaseCommandResult tryCreateTable(Database database, String tableName){
-        try{
+    private DatabaseCommandResult tryCreateTable(Database database, String tableName) {
+        try {
             database.createTableIfNotExists(tableName);
             return DatabaseCommandResult.success("Table created.");
-        }
-        catch (DatabaseException exc){
+        } catch (DatabaseException exc) {
             return DatabaseCommandResult.error(ERROR_FIX);
         }
     }

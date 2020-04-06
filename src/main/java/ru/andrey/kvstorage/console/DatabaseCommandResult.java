@@ -25,22 +25,21 @@ public interface DatabaseCommandResult {
         SUCCESS, FAILED
     }
 
-    class DatabaseResultClass implements DatabaseCommandResult{
+    class DatabaseResultClass implements DatabaseCommandResult {
 
         private final DatabaseCommandStatus status;
         private final String result;
 
-        private DatabaseResultClass(DatabaseCommandStatus status, String result){
+        private DatabaseResultClass(DatabaseCommandStatus status, String result) {
             this.status = status;
             this.result = result;
         }
 
         @Override
         public Optional<String> getResult() {
-            if (status == DatabaseCommandStatus.SUCCESS){
+            if (status == DatabaseCommandStatus.SUCCESS) {
                 return Optional.of(result);
-            }
-            else{
+            } else {
                 return Optional.empty();
             }
         }
@@ -57,10 +56,9 @@ public interface DatabaseCommandResult {
 
         @Override
         public String getErrorMessage() {
-            if (status == DatabaseCommandStatus.FAILED){
+            if (status == DatabaseCommandStatus.FAILED) {
                 return result;
-            }
-            else{
+            } else {
                 return null;
             }
         }

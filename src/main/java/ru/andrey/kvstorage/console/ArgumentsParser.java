@@ -2,24 +2,25 @@ package ru.andrey.kvstorage.console;
 
 public class ArgumentsParser {
     private String[] args;
-    enum argsNames{
+
+    enum argsNames {
         DatabaseName, TableName, Key, Value
     }
 
 
-    public void setArgs(String... args){
+    public void setArgs(String... args) {
         this.args = args;
     }
 
-    public String getArgument(argsNames arg){
+    public String getArgument(argsNames arg) {
         int id = arg.ordinal();
-        if(args.length > id){
+        if (args.length > id) {
             return args[id];
         }
         return null;
     }
 
-    public int argsLength(){
+    public int argsLength() {
         return args.length;
     }
 

@@ -20,7 +20,7 @@ public class ReadKeyCommand implements DatabaseCommand {
     }
 
     @Override
-    public DatabaseCommandResult execute(){
+    public DatabaseCommandResult execute() {
         if (parser.argsLength() != 3) {
             throw new IllegalArgumentException("Wrong arguments number, expected 3, got: " + parser.argsLength());
         }

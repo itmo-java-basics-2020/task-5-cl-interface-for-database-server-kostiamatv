@@ -1,15 +1,15 @@
 package ru.andrey.kvstorage.console;
 
 
-public enum  DatabaseCommands {
+public enum DatabaseCommands {
 
-    CREATE_DATABASE{
+    CREATE_DATABASE {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment env, String... args) {
             return new CreateDatabaseCommand(env, args);
         }
     },
-    CREATE_TABLE{
+    CREATE_TABLE {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment env, String... args) {
             return new CreateTableCommand(env, args);
@@ -21,7 +21,7 @@ public enum  DatabaseCommands {
             return new UpdateKeyCommand(env, args);
         }
     },
-    READ_KEY{
+    READ_KEY {
         @Override
         public DatabaseCommand getCommand(ExecutionEnvironment env, String... args) {
             return new ReadKeyCommand(env, args);

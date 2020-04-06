@@ -23,7 +23,7 @@ public class UpdateKeyCommand implements DatabaseCommand {
     }
 
     @Override
-    public DatabaseCommandResult execute(){
+    public DatabaseCommandResult execute() {
         if (parser.argsLength() != 4) {
             throw new IllegalArgumentException("Wrong arguments number, expected 4, got: " + parser.argsLength());
         }
@@ -32,11 +32,10 @@ public class UpdateKeyCommand implements DatabaseCommand {
     }
 
     private DatabaseCommandResult tryUpdateKey(Database database, String tableName, String key, String value) {
-        try{
+        try {
             database.write(tableName, key, value);
             return DatabaseCommandResult.success("Successfully created/updated value.");
-        }
-        catch (DatabaseException exc){
+        } catch (DatabaseException exc) {
             return DatabaseCommandResult.error(ERROR_FIX);
         }
     }
