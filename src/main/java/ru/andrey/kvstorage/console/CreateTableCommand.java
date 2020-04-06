@@ -22,7 +22,7 @@ public class CreateTableCommand implements DatabaseCommand {
     @Override
     public DatabaseCommandResult execute() {
         if (parser.argsLength() != 2) {
-            throw new IllegalArgumentException("Wrong arguments number, expected 1, got: " + parser.argsLength());
+            throw new IllegalArgumentException("Wrong arguments number, expected 2, got: " + parser.argsLength());
         }
         return environment.getDatabase(databaseName).map(database -> tryCreateTable(database, tableName))
                 .orElse(DatabaseCommandResult.error(ERROR_FIX));
