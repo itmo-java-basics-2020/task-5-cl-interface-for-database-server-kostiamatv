@@ -3,8 +3,9 @@ package ru.andrey.kvstorage.console;
 import ru.andrey.kvstorage.exception.DatabaseException;
 import ru.andrey.kvstorage.logic.Database;
 
+import java.util.Optional;
+
 public class UpdateKeyCommand implements DatabaseCommand {
-    private static final String ERROR_FIX = "Table already exists";
     private static final int ARGS_NUM = 4;
     private ExecutionEnvironment environment;
     private ArgumentsParser parser = new ArgumentsParser();
@@ -27,9 +28,12 @@ public class UpdateKeyCommand implements DatabaseCommand {
         if (parser.argsLength() != ARGS_NUM) {
             throw new IllegalArgumentException("Wrong arguments number, expected " + ARGS_NUM + ", got: " + parser.argsLength());
         }
-        return environment.getDatabase(databaseName)
-                .map(database -> tryUpdateKey(database, tableName, key, value))
-                .orElse(DatabaseCommandResult.error(ERROR_FIX));
+        Optional<Database> database = environment.getDatabase(databaseName);
+        if (database.isPresent()) {
+            return tryUpdateKey(database.get(), tableName, key, value);
+        } else {
+            return DatabaseCommandResult.error("No table with given name");
+        }
     }
 
     private DatabaseCommandResult tryUpdateKey(Database database, String tableName, String key, String value) {
@@ -37,7 +41,7 @@ public class UpdateKeyCommand implements DatabaseCommand {
             database.write(tableName, key, value);
             return DatabaseCommandResult.success("Successfully created/updated value.");
         } catch (DatabaseException exc) {
-            return DatabaseCommandResult.error(ERROR_FIX);
+            return DatabaseCommandResult.error(exc.getMessage());
         }
     }
 }

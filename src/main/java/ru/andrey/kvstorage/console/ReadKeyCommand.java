@@ -3,8 +3,9 @@ package ru.andrey.kvstorage.console;
 import ru.andrey.kvstorage.exception.DatabaseException;
 import ru.andrey.kvstorage.logic.Database;
 
+import java.util.Optional;
+
 public class ReadKeyCommand implements DatabaseCommand {
-    private static final String ERROR_FIX = "Table already exists";
     private static final int ARGS_NUM = 3;
     private ExecutionEnvironment environment;
     private ArgumentsParser parser = new ArgumentsParser();
@@ -25,16 +26,19 @@ public class ReadKeyCommand implements DatabaseCommand {
         if (parser.argsLength() != ARGS_NUM) {
             throw new IllegalArgumentException("Wrong arguments number, expected " + ARGS_NUM + ", got: " + parser.argsLength());
         }
-        return environment.getDatabase(databaseName)
-                .map(database -> tryReadKey(database, tableName, key))
-                .orElse(DatabaseCommandResult.error(ERROR_FIX));
+        Optional<Database> database = environment.getDatabase(databaseName);
+        if (database.isPresent()) {
+            return tryReadKey(database.get(), tableName, key);
+        } else {
+            return DatabaseCommandResult.error("No table with given name");
+        }
     }
 
     private DatabaseCommandResult tryReadKey(Database database, String tableName, String key) {
         try {
             return DatabaseCommandResult.success(database.read(tableName, key));
         } catch (DatabaseException exc) {
-            return DatabaseCommandResult.error(ERROR_FIX);
+            return DatabaseCommandResult.error(exc.getMessage());
         }
     }
 }

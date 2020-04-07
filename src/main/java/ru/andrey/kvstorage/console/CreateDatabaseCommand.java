@@ -1,6 +1,6 @@
 package ru.andrey.kvstorage.console;
 
-public class CreateDatabaseCommand  implements DatabaseCommand{
+public class CreateDatabaseCommand implements DatabaseCommand {
     private ExecutionEnvironment environment;
     private static final int ARGS_NUM = 1;
     private ArgumentsParser parser = new ArgumentsParser();
