@@ -39,9 +39,8 @@ public interface DatabaseCommandResult {
         public Optional<String> getResult() {
             if (status == DatabaseCommandStatus.SUCCESS) {
                 return Optional.of(result);
-            } else {
-                return Optional.empty();
             }
+            return Optional.empty();
         }
 
         @Override
@@ -58,9 +57,8 @@ public interface DatabaseCommandResult {
         public String getErrorMessage() {
             if (status == DatabaseCommandStatus.FAILED) {
                 return result;
-            } else {
-                return null;
             }
+            return null;
         }
 
     }

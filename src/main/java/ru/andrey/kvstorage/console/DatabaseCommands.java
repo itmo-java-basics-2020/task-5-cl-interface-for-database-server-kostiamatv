@@ -1,6 +1,5 @@
 package ru.andrey.kvstorage.console;
 
-
 public enum DatabaseCommands {
 
     CREATE_DATABASE {

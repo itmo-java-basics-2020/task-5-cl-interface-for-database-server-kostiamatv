@@ -7,7 +7,6 @@ public class ArgumentsParser {
         DatabaseName, TableName, Key, Value
     }
 
-
     public void setArgs(String... args) {
         this.args = args;
     }

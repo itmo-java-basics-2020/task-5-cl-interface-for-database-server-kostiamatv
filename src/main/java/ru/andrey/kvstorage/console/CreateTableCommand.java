@@ -5,11 +5,11 @@ import ru.andrey.kvstorage.logic.Database;
 
 public class CreateTableCommand implements DatabaseCommand {
     private static final String ERROR_FIX = "Table already exists";
-    ExecutionEnvironment environment;
-    ArgumentsParser parser = new ArgumentsParser();
-    String databaseName;
-    String tableName;
-
+    private static final int ARGS_NUM = 2;
+    private ExecutionEnvironment environment;
+    private ArgumentsParser parser = new ArgumentsParser();
+    private String databaseName;
+    private String tableName;
 
     public CreateTableCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
@@ -20,10 +20,11 @@ public class CreateTableCommand implements DatabaseCommand {
 
     @Override
     public DatabaseCommandResult execute() {
-        if (parser.argsLength() != 2) {
-            throw new IllegalArgumentException("Wrong arguments number, expected 2, got: " + parser.argsLength());
+        if (parser.argsLength() != ARGS_NUM) {
+            throw new IllegalArgumentException("Wrong arguments number, expected " + ARGS_NUM + ", got: " + parser.argsLength());
         }
-        return environment.getDatabase(databaseName).map(database -> tryCreateTable(database, tableName))
+        return environment.getDatabase(databaseName)
+                .map(database -> tryCreateTable(database, tableName))
                 .orElse(DatabaseCommandResult.error(ERROR_FIX));
     }
 

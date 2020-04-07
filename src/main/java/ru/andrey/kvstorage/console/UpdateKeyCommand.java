@@ -5,13 +5,13 @@ import ru.andrey.kvstorage.logic.Database;
 
 public class UpdateKeyCommand implements DatabaseCommand {
     private static final String ERROR_FIX = "Table already exists";
-    ExecutionEnvironment environment;
-    ArgumentsParser parser = new ArgumentsParser();
-    String databaseName;
-    String tableName;
-    String key;
-    String value;
-
+    private static final int ARGS_NUM = 4;
+    private ExecutionEnvironment environment;
+    private ArgumentsParser parser = new ArgumentsParser();
+    private String databaseName;
+    private String tableName;
+    private String key;
+    private String value;
 
     public UpdateKeyCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
@@ -24,10 +24,11 @@ public class UpdateKeyCommand implements DatabaseCommand {
 
     @Override
     public DatabaseCommandResult execute() {
-        if (parser.argsLength() != 4) {
-            throw new IllegalArgumentException("Wrong arguments number, expected 4, got: " + parser.argsLength());
+        if (parser.argsLength() != ARGS_NUM) {
+            throw new IllegalArgumentException("Wrong arguments number, expected " + ARGS_NUM + ", got: " + parser.argsLength());
         }
-        return environment.getDatabase(databaseName).map(database -> tryUpdateKey(database, tableName, key, value))
+        return environment.getDatabase(databaseName)
+                .map(database -> tryUpdateKey(database, tableName, key, value))
                 .orElse(DatabaseCommandResult.error(ERROR_FIX));
     }
 

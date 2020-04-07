@@ -5,11 +5,12 @@ import ru.andrey.kvstorage.logic.Database;
 
 public class ReadKeyCommand implements DatabaseCommand {
     private static final String ERROR_FIX = "Table already exists";
-    ExecutionEnvironment environment;
-    ArgumentsParser parser = new ArgumentsParser();
-    String databaseName;
-    String tableName;
-    String key;
+    private static final int ARGS_NUM = 3;
+    private ExecutionEnvironment environment;
+    private ArgumentsParser parser = new ArgumentsParser();
+    private String databaseName;
+    private String tableName;
+    private String key;
 
     public ReadKeyCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
@@ -21,10 +22,11 @@ public class ReadKeyCommand implements DatabaseCommand {
 
     @Override
     public DatabaseCommandResult execute() {
-        if (parser.argsLength() != 3) {
-            throw new IllegalArgumentException("Wrong arguments number, expected 3, got: " + parser.argsLength());
+        if (parser.argsLength() != ARGS_NUM) {
+            throw new IllegalArgumentException("Wrong arguments number, expected " + ARGS_NUM + ", got: " + parser.argsLength());
         }
-        return environment.getDatabase(databaseName).map(database -> tryReadKey(database, tableName, key))
+        return environment.getDatabase(databaseName)
+                .map(database -> tryReadKey(database, tableName, key))
                 .orElse(DatabaseCommandResult.error(ERROR_FIX));
     }
 
