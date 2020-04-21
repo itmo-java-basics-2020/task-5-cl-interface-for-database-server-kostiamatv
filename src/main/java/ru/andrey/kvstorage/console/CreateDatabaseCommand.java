@@ -9,7 +9,7 @@ public class CreateDatabaseCommand implements DatabaseCommand {
     public CreateDatabaseCommand(ExecutionEnvironment env, String... args) {
         environment = env;
         parser.setArgs(args);
-        databaseName = parser.getArgument(ArgumentsParser.argsNames.DatabaseName);
+        databaseName = parser.getArgument(ArgumentsParser.argsNames.DATABASE_NAME);
     }
 
     @Override

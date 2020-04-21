@@ -4,7 +4,7 @@ public class ArgumentsParser {
     private String[] args;
 
     enum argsNames {
-        DatabaseName, TableName, Key, Value
+        DATABASE_NAME, TABLE_NAME, KEY, VALUE
     }
 
     public void setArgs(String... args) {

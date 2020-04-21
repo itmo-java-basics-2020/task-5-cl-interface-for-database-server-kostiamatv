@@ -17,10 +17,10 @@ public class UpdateKeyCommand implements DatabaseCommand {
     public UpdateKeyCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
         parser.setArgs(args);
-        databaseName = parser.getArgument(ArgumentsParser.argsNames.DatabaseName);
-        tableName = parser.getArgument(ArgumentsParser.argsNames.TableName);
-        key = parser.getArgument(ArgumentsParser.argsNames.Key);
-        value = parser.getArgument(ArgumentsParser.argsNames.Value);
+        databaseName = parser.getArgument(ArgumentsParser.argsNames.DATABASE_NAME);
+        tableName = parser.getArgument(ArgumentsParser.argsNames.TABLE_NAME);
+        key = parser.getArgument(ArgumentsParser.argsNames.KEY);
+        value = parser.getArgument(ArgumentsParser.argsNames.VALUE);
     }
 
     @Override

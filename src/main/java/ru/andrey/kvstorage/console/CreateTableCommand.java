@@ -15,8 +15,8 @@ public class CreateTableCommand implements DatabaseCommand {
     public CreateTableCommand(ExecutionEnvironment env, String[] args) {
         environment = env;
         parser.setArgs(args);
-        databaseName = parser.getArgument(ArgumentsParser.argsNames.DatabaseName);
-        tableName = parser.getArgument(ArgumentsParser.argsNames.TableName);
+        databaseName = parser.getArgument(ArgumentsParser.argsNames.DATABASE_NAME);
+        tableName = parser.getArgument(ArgumentsParser.argsNames.TABLE_NAME);
     }
 
     @Override
